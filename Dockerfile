@@ -16,9 +16,9 @@ WORKDIR /usr/src/app
 
 VOLUME /usr/local/bundle
 
-ONBUILD COPY . /usr/src/app
+ONBUILD COPY Gemfile /usr/src/app/
+ONBUILD COPY Gemfile.lock /usr/src/app/
 ONBUILD RUN bundle install
-ONBUILD RUN rake assets:precompile
 
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
