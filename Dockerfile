@@ -16,7 +16,6 @@ WORKDIR /usr/src/app
 
 ONBUILD COPY . /usr/src/app
 ONBUILD RUN bundle install
-ONBUILD RUN rake db:migrate
 ONBUILD RUN rake assets:precompile
 
 EXPOSE 3000
