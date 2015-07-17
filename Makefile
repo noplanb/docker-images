@@ -1,6 +1,6 @@
 NAME=zazo/rails
 # VERSION=`git describe --tags`
-VERSION=1.1
+VERSION=1.2
 CORE_VERSION=HEAD
 
 all: build

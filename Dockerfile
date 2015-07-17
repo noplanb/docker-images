@@ -14,6 +14,8 @@ RUN gem install slack-notifier
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
+VOLUME /usr/local/bundle
+
 ONBUILD COPY . /usr/src/app
 ONBUILD RUN bundle install
 ONBUILD RUN rake assets:precompile
