@@ -7,3 +7,15 @@ RUN pip install awscli awsebcli
 
 # For wantedly/pretty-slack-notify
 RUN gem install slack-notifier
+
+# throw errors if Gemfile has been modified since Gemfile.lock
+# RUN bundle config --global frozen 1
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+ONBUILD COPY . /usr/src/app
+ONBUILD RUN bundle install
+
+EXPOSE 3000
+CMD ["rails", "server", "-b", "0.0.0.0"]
