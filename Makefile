@@ -3,7 +3,7 @@ NAME=zazo/rails
 VERSION=1.4
 CORE_VERSION=HEAD
 
-all: build
+all: build tag_latest push
 
 build:
 	docker build -t $(NAME):$(VERSION) --rm .
