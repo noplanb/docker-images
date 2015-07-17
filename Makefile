@@ -1,6 +1,6 @@
 NAME=zazo/rails
 # VERSION=`git describe --tags`
-VERSION=1.4
+VERSION=1.5
 CORE_VERSION=HEAD
 
 all: build tag_latest push

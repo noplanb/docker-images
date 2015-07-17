@@ -21,4 +21,4 @@ ONBUILD COPY . /usr/src/app
 
 VOLUME /usr/local/bundle
 EXPOSE 3000
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bin/rails", "server", "-b", "0.0.0.0"]
