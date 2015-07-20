@@ -8,6 +8,9 @@ RUN pip install awscli awsebcli
 # throw errors if Gemfile has been modified since Gemfile.lock
 # RUN bundle config --global frozen 1
 
+# For wantedly/pretty-slack-notify
+RUN gem install slack-notifier
+
 RUN mkdir -p /usr/src/app && \
     useradd app --home /usr/src/app && \
     chown app:app -R /usr/src/app
@@ -18,10 +21,6 @@ VOLUME /usr/local/bundle
 ONBUILD RUN chown app:app -R /usr/local/bundle
 
 ONBUILD USER app
-
-# For wantedly/pretty-slack-notify
-ONBUILD RUN gem install slack-notifier
-
 ONBUILD COPY Gemfile /usr/src/app/
 ONBUILD COPY Gemfile.lock /usr/src/app/
 ONBUILD RUN bundle install
