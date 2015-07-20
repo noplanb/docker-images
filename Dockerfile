@@ -1,35 +1,46 @@
 FROM ruby:2.2
 MAINTAINER Alex Ulianytskyi <a.ulyanitsky@gmail.com>
 
+# Packages
 RUN apt-get update && \
-    apt-get -y -q install build-essential python-dev python-pip nodejs postgresql-client --no-install-recommends && \
+    apt-get -y -q install build-essential python-dev python-pip \
+    nginx nodejs postgresql-client --no-install-recommends && \
     apt-get clean
 
+# AWS CLI & EB CLi
 RUN pip install awscli awsebcli
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 # RUN bundle config --global frozen 1
 
-# For wantedly/pretty-slack-notify
-RUN gem install slack-notifier
+# Nginx
+RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
+RUN chown -R www-data:www-data /var/lib/nginx
+# Add default nginx config
+COPY nginx-sites.conf /etc/nginx/sites-enabled/default
 
-RUN mkdir -p /usr/src/app && \
+# For wantedly/pretty-slack-notify
+RUN gem install slack-notifier foreman
+
+RUN mkdir -p /usr/src/app /usr/src/app/{public,log,tmp} && \
     useradd app --home /usr/src/app && \
     chown app:app -R /usr/src/app
 
 WORKDIR /usr/src/app
 
+# Add default unicorn config
+COPY puma.rb /usr/src/app/config/puma.rb
+
+# Add default foreman config
+COPY Procfile /usr/src/app/Procfile
+
 ONBUILD COPY Gemfile /usr/src/app/
 ONBUILD COPY Gemfile.lock /usr/src/app/
 ONBUILD RUN bundle install
 ONBUILD COPY . /usr/src/app
-ONBUILD USER root
-ONBUILD RUN chown app:app -R /usr/local/bundle
-ONBUILD RUN chown app:app -R /usr/src/app
-ONBUILD USER app
 
 VOLUME /usr/local/bundle
-VOLUME /usr/src/app/tmp
+VOLUME /usr/src/app/log /usr/src/app/tmp
 
-EXPOSE 3000
-CMD bundle exec rails server -b 0.0.0.0
+EXPOSE 8000
+CMD foreman start
