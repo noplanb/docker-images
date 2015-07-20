@@ -30,7 +30,7 @@ ONBUILD COPY . /usr/src/app
 ONBUILD USER root
 ONBUILD RUN chown app:app -R /usr/src/app
 ONBUILD USER app
-ONBUILD VOLUME /usr/src/app/tmp
+VOLUME /usr/src/app/tmp
 
 EXPOSE 3000
 CMD bundle exec rails server -b 0.0.0.0
