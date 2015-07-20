@@ -1,10 +1,10 @@
-FROM rails:4.2.3
+FROM ruby:slim
 MAINTAINER Alex Ulianytskyi <a.ulyanitsky@gmail.com>
 
-# For asux/elastic-beanstalk-deploy
-RUN apt-get -y -q update && \
-    apt-get -y -q install build-essential python-dev python-pip && \
+RUN apt-get update && \
+    apt-get -y -q install build-essential python-dev python-pip nodejs postgresql-client --no-install-recommends && \
     apt-get clean
+
 RUN pip install awscli awsebcli
 
 # throw errors if Gemfile has been modified since Gemfile.lock
@@ -19,17 +19,17 @@ RUN mkdir -p /usr/src/app && \
 
 WORKDIR /usr/src/app
 
-VOLUME /usr/local/bundle
 ONBUILD RUN chown app:app -R /usr/local/bundle
-
 ONBUILD USER app
 ONBUILD COPY Gemfile /usr/src/app/
 ONBUILD COPY Gemfile.lock /usr/src/app/
-ONBUILD RUN bundle install
+ONBUILD RUN bundle install --deployment
 ONBUILD COPY . /usr/src/app
 ONBUILD USER root
 ONBUILD RUN chown app:app -R /usr/src/app
 ONBUILD USER app
+
+VOLUME /usr/local/bundle
 VOLUME /usr/src/app/tmp
 
 EXPOSE 3000

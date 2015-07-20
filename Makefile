@@ -1,9 +1,9 @@
 NAME=zazo/rails
 # VERSION=`git describe --tags`
-VERSION=1.9
+VERSION=2.0
 CORE_VERSION=HEAD
 
-all: build tag_latest push
+all: build tag_latest
 
 build:
 	docker build -t $(NAME):$(VERSION) --rm .
