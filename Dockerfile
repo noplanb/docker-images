@@ -2,7 +2,7 @@ FROM ruby:slim
 MAINTAINER Alex Ulianytskyi <a.ulyanitsky@gmail.com>
 
 RUN apt-get update && \
-    apt-get -y -q install build-essential python-dev python-pip nodejs postgresql-client --no-install-recommends && \
+    apt-get -y -q install git build-essential python-dev python-pip nodejs postgresql-client --no-install-recommends && \
     apt-get clean
 
 RUN pip install awscli awsebcli
