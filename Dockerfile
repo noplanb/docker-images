@@ -1,5 +1,5 @@
 FROM rails:4.2.3
-MAINTAINER Alex Ulianytskyi, a.ulyanitsky@gmail.com
+MAINTAINER Alex Ulianytskyi <a.ulyanitsky@gmail.com>
 
 # For asux/elastic-beanstalk-deploy
 RUN apt-get -y -q update && apt-get -y -q install build-essential python-dev python-pip && apt-get clean
@@ -19,6 +19,7 @@ ONBUILD COPY Gemfile.lock /usr/src/app/
 ONBUILD RUN bundle install
 ONBUILD COPY . /usr/src/app
 
-VOLUME /usr/local/bundle
+RUN gem install foreman
+
 EXPOSE 3000
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+CMD ["foreman", "start"]
