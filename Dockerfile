@@ -19,13 +19,12 @@ RUN mkdir -p /usr/src/app && \
 
 WORKDIR /usr/src/app
 
-ONBUILD RUN chown app:app -R /usr/local/bundle
-ONBUILD USER app
 ONBUILD COPY Gemfile /usr/src/app/
 ONBUILD COPY Gemfile.lock /usr/src/app/
-ONBUILD RUN bundle install --deployment
+ONBUILD RUN bundle install
 ONBUILD COPY . /usr/src/app
 ONBUILD USER root
+ONBUILD RUN chown app:app -R /usr/local/bundle
 ONBUILD RUN chown app:app -R /usr/src/app
 ONBUILD USER app
 
