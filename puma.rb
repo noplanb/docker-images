@@ -73,7 +73,8 @@ threads Integer(ENV.fetch('MIN_THREADS', 0)), Integer(ENV.fetch('MAX_THREADS', 1
 # The default is "tcp://0.0.0.0:9292".
 #
 # bind 'tcp://0.0.0.0:9292'
-bind 'unix://tmp/sockets/puma.sock'
+# bind 'unix://tmp/sockets/puma.sock'
+bind 'unix:///usr/src/app/tmp/sockets/puma.sock'
 # bind 'unix:///var/run/puma.sock?umask=0111'
 # bind 'ssl://127.0.0.1:9292?key=path_to_key&cert=path_to_cert'
 

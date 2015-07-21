@@ -20,9 +20,9 @@ RUN chown -R www-data:www-data /var/lib/nginx
 COPY nginx-sites.conf /etc/nginx/sites-enabled/default
 
 # For wantedly/pretty-slack-notify
-RUN gem install slack-notifier foreman
+RUN gem install slack-notifier foreman puma
 
-RUN mkdir -p /usr/src/app /usr/src/app/{public,log,tmp} && \
+RUN mkdir -p /usr/src/app /usr/src/app/{public,log} /usr/src/app/tmp/{sockets,pids} && \
     useradd app --home /usr/src/app && \
     chown app:app -R /usr/src/app
 
@@ -39,8 +39,8 @@ ONBUILD COPY Gemfile.lock /usr/src/app/
 ONBUILD RUN bundle install
 ONBUILD COPY . /usr/src/app
 
-VOLUME /usr/local/bundle
-VOLUME /usr/src/app/log /usr/src/app/tmp
+# VOLUME /usr/local/bundle
+# VOLUME /usr/src/app/log /usr/src/app/tmp
 
 EXPOSE 8000
 CMD foreman start

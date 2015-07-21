@@ -1,2 +1,2 @@
-web: bundle exec puma
+web: puma
 nginx: /usr/sbin/nginx
