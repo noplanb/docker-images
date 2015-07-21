@@ -36,34 +36,6 @@ make
 
 ## Usage
 
-Simple `Dockerfile` for your rails app is:
-
-```Dockerfile
-FROM zazo/rails
-
-EXPOSE 8000
-```
-
-Simple `Dockerrun.aws.json` is:
-
-```json
-{
-  "AWSEBDockerrunVersion": 1,
-  "Ports": [
-    {
-      "ContainerPort": "8000"
-    }
-  ],
-  "Volumes": [
-    {
-      "HostDirectory": "/var/app/bundle",
-      "ContainerDirectory": "/usr/local/bundle"
-    },
-    {
-      "HostDirectory": "/var/app/tmp",
-      "ContainerDirectory": "/usr/src/app/tmp"
-    }
-  ],
-  "Logging": "/usr/src/app/log"
-}
-```
+Simple `Dockerfile` for your rails app is [here](./examples/Dockerfile).
+Simple `Dockerrun.aws.json` is [here](./examples/Dockerrun.aws.json).
+Simple EB config file with `rake db:migrate` is [here](./examples/eb.config).
