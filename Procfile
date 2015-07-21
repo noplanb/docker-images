@@ -1,2 +1,2 @@
-web: sudo -nE -u www-data puma
+web: puma
 nginx: service nginx start
