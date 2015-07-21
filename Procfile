@@ -1,2 +1,2 @@
-web: puma
-nginx: /usr/sbin/nginx
+web: sudo -u www-data puma
+nginx: service nginx start

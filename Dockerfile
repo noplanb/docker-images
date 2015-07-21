@@ -4,7 +4,7 @@ MAINTAINER Alex Ulianytskyi <a.ulyanitsky@gmail.com>
 # Packages
 RUN apt-get update && \
     apt-get -y -q install build-essential python-dev python-pip \
-    nginx nodejs postgresql-client --no-install-recommends && \
+    sudo nginx nodejs postgresql-client --no-install-recommends && \
     apt-get clean
 
 # AWS CLI & EB CLi
@@ -22,11 +22,11 @@ COPY nginx-sites.conf /etc/nginx/sites-enabled/default
 # For wantedly/pretty-slack-notify
 RUN gem install slack-notifier foreman puma
 
-RUN mkdir -p /usr/src/app /usr/src/app/{public,log} /usr/src/app/tmp/{sockets,pids} && \
-    useradd app --home /usr/src/app && \
-    chown app:app -R /usr/src/app
+RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
+
+RUN mkdir -p public log tmp tmp/sockets tmp/pids tmp/cache
 
 # Add default unicorn config
 COPY puma.rb /usr/src/app/config/puma.rb
@@ -38,9 +38,8 @@ ONBUILD COPY Gemfile /usr/src/app/
 ONBUILD COPY Gemfile.lock /usr/src/app/
 ONBUILD RUN bundle install
 ONBUILD COPY . /usr/src/app
-
-# VOLUME /usr/local/bundle
-# VOLUME /usr/src/app/log /usr/src/app/tmp
+ONBUILD RUN rake assets:precompile
+ONBUILD RUN chown www-data:www-data -R /usr/src/app
 
 EXPOSE 8000
 CMD foreman start
