@@ -36,7 +36,7 @@ COPY Procfile /usr/src/app/Procfile
 
 ONBUILD COPY Gemfile /usr/src/app/
 ONBUILD COPY Gemfile.lock /usr/src/app/
-ONBUILD RUN bundle install
+ONBUILD RUN bundle install --deployment --jobs 4 --clean
 ONBUILD COPY . /usr/src/app
 ONBUILD RUN rake assets:precompile
 ONBUILD RUN chown www-data:www-data -R /usr/src/app
