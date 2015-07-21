@@ -37,5 +37,7 @@ make
 ## Usage
 
 Simple `Dockerfile` for your rails app is [here](./examples/Dockerfile).
+
 Simple `Dockerrun.aws.json` is [here](./examples/Dockerrun.aws.json).
+
 Simple EB config file with `rake db:migrate` is [here](./examples/eb.config).
