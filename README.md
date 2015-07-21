@@ -1,7 +1,7 @@
 Docker base image: Rails + Nginx + Puma
 =======================================
 
-Docker base image for [Rails](http:://rubyonrails.org) runned with [Nginx](http://nginx.org) and [Puma](http://puma.io) prepared for deploy on [AWS Elasticbeanstalk](http://aws.amazon.com/ru/elasticbeanstalk/).
+Docker base image for [Rails](http://rubyonrails.org) runned with [Nginx](http://nginx.org) and [Puma](http://puma.io) prepared for deploy on [AWS Elasticbeanstalk](http://aws.amazon.com/ru/elasticbeanstalk/).
 
 ## Dockerfile
 
