@@ -17,5 +17,8 @@ tag_latest:
 push:
 	docker push $(NAME)
 
+pull:
+	docker pull $(NAME)
+
 run:
 	docker run -P -v $(PWD)/public:/usr/src/app/public -v $(PWD)/log:/usr/src/app/log -v $(PWD)/tmp:/usr/src/app/tmp $(NAME)
