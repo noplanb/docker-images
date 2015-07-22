@@ -11,7 +11,7 @@ RUN apt-get update && \
 RUN pip install awscli awsebcli
 
 # Pre-install gems
-RUN gem install slack-notifier foreman puma pg mysql2
+RUN gem install slack-notifier foreman puma pg mysql2 rails
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 # RUN bundle config --global frozen 1
