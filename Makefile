@@ -3,7 +3,7 @@ VERSION=`git describe --tags`
 CORE_VERSION=HEAD
 PWD=`pwd`
 
-all: version build tag_latest push
+all: version build
 
 version:
 	git describe --tags

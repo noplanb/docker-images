@@ -3,12 +3,15 @@ MAINTAINER Alex Ulianytskyi <a.ulyanitsky@gmail.com>
 
 # Packages
 RUN apt-get update && \
-    apt-get -y -q install build-essential python-dev python-pip \
-    sudo nginx nodejs postgresql-client --no-install-recommends && \
+    apt-get -y -q install nginx nodejs mysql-client postgresql-client \
+      python-pip python-dev --no-install-recommends && \
     apt-get clean
 
 # AWS CLI & EB CLi
 RUN pip install awscli awsebcli
+
+# Pre-install gems
+RUN gem install slack-notifier foreman puma pg mysql2
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 # RUN bundle config --global frozen 1
@@ -18,9 +21,6 @@ RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 RUN chown -R www-data:www-data /var/lib/nginx
 # Add default nginx config
 COPY nginx-sites.conf /etc/nginx/sites-enabled/default
-
-# For wantedly/pretty-slack-notify
-RUN gem install slack-notifier foreman puma
 
 RUN mkdir -p /usr/src/app
 
