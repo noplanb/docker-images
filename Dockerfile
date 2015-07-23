@@ -13,6 +13,9 @@ RUN pip install awscli awsebcli
 # Pre-install gems
 RUN gem install slack-notifier foreman puma pg mysql2 rails
 
+# Install npm packages
+RUN npm install --global dredd aglio
+
 # throw errors if Gemfile has been modified since Gemfile.lock
 # RUN bundle config --global frozen 1
 
