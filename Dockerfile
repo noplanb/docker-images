@@ -1,9 +1,11 @@
 FROM ruby:2.2
 MAINTAINER Alex Ulianytskyi <a.ulyanitsky@gmail.com>
 
+# Install NodeJs 0.12
+RUN curl --silent --location https://deb.nodesource.com/setup_0.12 | bash -
+
 # Packages
-RUN apt-get update && \
-    apt-get -y -q install nginx nodejs npm mysql-client postgresql-client \
+RUN apt-get -y -q install nginx nodejs mysql-client postgresql-client \
       python-pip python-dev --no-install-recommends && \
     apt-get clean
 
@@ -14,7 +16,7 @@ RUN pip install awscli awsebcli
 RUN gem install slack-notifier foreman puma pg mysql2 rails
 
 # Install npm packages
-RUN npm install --global dredd aglio
+RUN npm install --global dredd aglio && npm cache clear
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 # RUN bundle config --global frozen 1
