@@ -3,7 +3,7 @@ MAINTAINER Alex Ulianytskyi <a.ulyanitsky@gmail.com>
 
 # Packages
 RUN apt-get update && \
-    apt-get -y -q install nginx nodejs mysql-client postgresql-client \
+    apt-get -y -q install nginx nodejs npm mysql-client postgresql-client \
       python-pip python-dev --no-install-recommends && \
     apt-get clean
 
