@@ -1,6 +1,12 @@
 FROM ruby:2.2
 MAINTAINER Alex Ulianytskyi <a.ulyanitsky@gmail.com>
 
+# Nginx key
+RUN curl --silent --location http://nginx.org/keys/nginx_signing.key | apt-key add -
+
+# Add nginx mainline repository
+COPY nginx-mainline.list /etc/apt/sources.list.d/nginx.list
+
 # Install NodeJs 0.12
 RUN curl --silent --location https://deb.nodesource.com/setup_0.12 | bash -
 
