@@ -165,6 +165,7 @@ worker_timeout Integer(ENV.fetch('WORKER_TIMEOUT', 60))
 # to see what the app has available.
 #
 # activate_control_app 'unix:///var/run/pumactl.sock'
+activate_control_app 'unix://tmp/sockets/pumactl.sock'
 # activate_control_app 'unix:///var/run/pumactl.sock', { auth_token: '12345' }
 # activate_control_app 'unix:///var/run/pumactl.sock', { no_token: true }
 

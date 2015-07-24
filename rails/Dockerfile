@@ -31,13 +31,15 @@ RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN mkdir -p public log tmp tmp/sockets tmp/pids tmp/cache
+RUN mkdir -p public log log/nginx tmp tmp/sockets tmp/pids tmp/cache
+
+COPY 502.html 503.html public/
 
 # Add default unicorn config
-COPY puma.rb /usr/src/app/config/puma.rb
+COPY puma.rb config/
 
 # Add default foreman config
-COPY Procfile /usr/src/app/Procfile
+COPY Procfile Procfile
 
 ONBUILD COPY Gemfile /usr/src/app/
 ONBUILD COPY Gemfile.lock /usr/src/app/
