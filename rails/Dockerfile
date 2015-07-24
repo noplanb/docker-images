@@ -2,6 +2,8 @@ FROM ruby:2.2
 MAINTAINER Alex Ulianytskyi <a.ulyanitsky@gmail.com>
 
 # Nginx key
+RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+
 RUN curl --silent --location http://nginx.org/keys/nginx_signing.key | apt-key add -
 
 # Add nginx mainline repository
@@ -29,9 +31,9 @@ RUN npm install --global dredd aglio && npm cache clear
 
 # Nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
-RUN chown -R www-data:www-data /var/lib/nginx
+# RUN chown -R www-data:www-data /var/lib/nginx
 # Add default nginx config
-COPY nginx-sites.conf /etc/nginx/sites-enabled/default
+COPY nginx-sites.conf /etc/nginx/conf.d/default.conf
 
 RUN mkdir -p /usr/src/app
 
@@ -49,9 +51,11 @@ COPY Procfile Procfile
 
 ONBUILD COPY Gemfile /usr/src/app/
 ONBUILD COPY Gemfile.lock /usr/src/app/
-ONBUILD RUN bundle install --deployment --jobs 4 --clean
+ONBUILD RUN bundle install --deployment --jobs 8 --clean
 ONBUILD COPY . /usr/src/app
 ONBUILD RUN chown www-data:www-data -R /usr/src/app
 
-EXPOSE 8000
+ONBUILD VOLUME ["/var/cache/nginx", "/usr/local/bundle", "/usr/src/app/vendor/bundle"]
+
+EXPOSE 80 443
 CMD foreman start
