@@ -18,7 +18,7 @@ RUN apt-get -y -q install nginx nodejs mysql-client postgresql-client \
     apt-get clean
 
 # AWS CLI & EB CLi
-RUN pip install awscli awsebcli
+RUN pip install --upgrade awscli awsebcli
 
 # Pre-install gems
 RUN gem install slack-notifier foreman puma pg mysql2 rails
