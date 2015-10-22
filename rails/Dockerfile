@@ -51,7 +51,7 @@ COPY Procfile Procfile
 
 ONBUILD COPY Gemfile /usr/src/app/
 ONBUILD COPY Gemfile.lock /usr/src/app/
-ONBUILD RUN bundle install --jobs 8 --frozen
+ONBUILD RUN bundle install --jobs 8
 ONBUILD COPY . /usr/src/app
 ONBUILD RUN chown www-data:www-data -R /usr/src/app
 
