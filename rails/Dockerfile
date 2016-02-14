@@ -49,7 +49,7 @@ COPY puma.rb config/
 # Add default foreman config
 COPY Procfile Procfile
 
-ONBUILD COPY Gemfile /usr/src/app/
+ONBUILD COPY config/Gemfile /usr/src/app/
 ONBUILD COPY Gemfile.lock /usr/src/app/
 ONBUILD RUN bundle install --jobs 8
 ONBUILD COPY . /usr/src/app
